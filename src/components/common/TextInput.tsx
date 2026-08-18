@@ -7,6 +7,7 @@ import {
   type TextInputProps,
 } from 'react-native';
 import {colors} from '../../constants/colors';
+import {fonts} from '../../constants/fonts';
 
 interface Props extends TextInputProps {
   label?: string;
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 14,
-    fontWeight: '500',
+    fontFamily: fonts.medium,
     color: colors.text,
   },
   input: {
@@ -52,6 +53,7 @@ const styles = StyleSheet.create({
     borderColor: colors.border,
     paddingHorizontal: 16,
     fontSize: 16,
+    fontFamily: fonts.medium,
     color: colors.text,
     backgroundColor: colors.surface,
   },
@@ -64,6 +66,7 @@ const styles = StyleSheet.create({
   },
   error: {
     fontSize: 12,
+    fontFamily: fonts.medium,
     color: colors.error,
   },
 });

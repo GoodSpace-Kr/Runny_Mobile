@@ -8,6 +8,7 @@ import {
   type TextStyle,
 } from 'react-native';
 import {colors} from '../../constants/colors';
+import {fonts} from '../../constants/fonts';
 
 type Variant = 'primary' | 'secondary' | 'ghost';
 
@@ -71,7 +72,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 16,
-    fontWeight: '600',
+    fontFamily: fonts.medium,
   },
   primaryLabel: {
     color: colors.white,

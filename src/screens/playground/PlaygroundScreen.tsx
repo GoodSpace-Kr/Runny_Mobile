@@ -3,6 +3,7 @@ import {View, Text, StyleSheet} from 'react-native';
 import {SafeScreen} from '../../components/common';
 import {usePlaygroundStore} from '../../store/playgroundStore';
 import {playgroundApi} from '../../api/playground';
+import {fonts} from '../../constants/fonts';
 
 export function PlaygroundScreen() {
   const {data, setData} = usePlaygroundStore();
@@ -15,7 +16,7 @@ export function PlaygroundScreen() {
     <SafeScreen>
       <View style={styles.container}>
         <Text style={styles.placeholder}>놀이터 화면 - 3D 렌더링 영역</Text>
-        {data && <Text>코인: {data.coin}</Text>}
+        {data && <Text style={styles.body}>코인: {data.coin}</Text>}
       </View>
     </SafeScreen>
   );
@@ -29,6 +30,10 @@ const styles = StyleSheet.create({
   },
   placeholder: {
     fontSize: 18,
+    fontFamily: fonts.medium,
     color: '#666',
+  },
+  body: {
+    fontFamily: fonts.light,
   },
 });
