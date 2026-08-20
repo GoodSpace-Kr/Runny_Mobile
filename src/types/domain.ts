@@ -11,14 +11,28 @@ import type {
 
 // ─── Auth ────────────────────────────────────────────────────────────────────
 
+export interface Terms {
+  serviceTerms: boolean;
+  privacyTerms: boolean;
+  locationTerms: boolean;
+  marketingTerms: boolean;
+}
+
 export interface TokenPair {
   accessToken: string;
   refreshToken: string;
 }
 
+/** login / signup / refresh 공통 응답 형태 */
 export interface AuthResult extends TokenPair {
   onboardingStatus: OnboardingStatus;
-  isNewUser?: boolean;
+  provider: AuthProvider;
+}
+
+/** email/verify-code, password/verify-code 공통 응답 형태 */
+export interface VerifyCodeResult {
+  verified: boolean;
+  resetToken: string;
 }
 
 // ─── User ────────────────────────────────────────────────────────────────────
