@@ -7,15 +7,18 @@ import {
   type ViewStyle,
   type TextStyle,
 } from 'react-native';
-import {colors} from '../../constants/colors';
-import {fonts} from '../../constants/fonts';
 
-type Variant = 'primary' | 'secondary' | 'ghost';
+import { colors } from '../../constants/colors';
+import { fonts } from '../../constants/fonts';
+
+type Variant = 'primary' | 'secondary';
+type Radius = 12 | 20 | 30;
 
 interface ButtonProps {
   label: string;
   onPress: () => void;
   variant?: Variant;
+  radius?: Radius;
   loading?: boolean;
   disabled?: boolean;
   style?: ViewStyle;
@@ -26,6 +29,7 @@ export function Button({
   label,
   onPress,
   variant = 'primary',
+  radius = 30,
   loading = false,
   disabled = false,
   style,
@@ -38,11 +42,28 @@ export function Button({
       onPress={onPress}
       disabled={isDisabled}
       activeOpacity={0.8}
-      style={[styles.base, styles[variant], isDisabled && styles.disabled, style]}>
+      style={[
+        styles.base,
+        styles[variant],
+        { borderRadius: radius }, // radius만 동적으로 적용
+        isDisabled && styles.disabled,
+        style,
+      ]}
+    >
       {loading ? (
-        <ActivityIndicator color={variant === 'primary' ? colors.white : colors.primary} />
+        <ActivityIndicator
+          color={variant === 'secondary' ? colors.gray : colors.white}
+        />
       ) : (
-        <Text style={[styles.label, styles[`${variant}Label`], textStyle]}>{label}</Text>
+        <Text
+          style={[
+            styles.label,
+            variant === 'primary' ? styles.primaryLabel : styles.secondaryLabel,
+            textStyle,
+          ]}
+        >
+          {label}
+        </Text>
       )}
     </TouchableOpacity>
   );
@@ -50,37 +71,50 @@ export function Button({
 
 const styles = StyleSheet.create({
   base: {
-    height: 52,
-    borderRadius: 12,
+    height: 55,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 20,
+    paddingHorizontal: 24,
   },
+
   primary: {
     backgroundColor: colors.primary,
+    boxShadow: [
+      {
+        offsetX: 2,
+        offsetY: 2,
+        blurRadius: 2,
+        color: 'rgba(255,102,0,0.3)',
+      },
+      {
+        offsetX: -2,
+        offsetY: 4,
+        blurRadius: 4,
+        color: 'rgba(255,255,255,0.35)',
+        inset: true,
+      },
+    ],
   },
+
   secondary: {
-    backgroundColor: colors.surface,
-    borderWidth: 1,
-    borderColor: colors.border,
+    backgroundColor: colors.grayBackground,
   },
-  ghost: {
-    backgroundColor: colors.transparent,
-  },
+
   disabled: {
     opacity: 0.4,
   },
+
   label: {
-    fontSize: 16,
-    fontFamily: fonts.medium,
+    fontFamily: fonts.display,
   },
+
   primaryLabel: {
+    fontSize: 15,
     color: colors.white,
   },
+
   secondaryLabel: {
-    color: colors.text,
-  },
-  ghostLabel: {
-    color: colors.primary,
+    fontSize: 16,
+    color: colors.gray,
   },
 });
