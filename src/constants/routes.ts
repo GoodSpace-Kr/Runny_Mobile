@@ -1,5 +1,6 @@
 export const Routes = {
   // Auth
+  Start: 'Start',
   Login: 'Login',
   Signup: 'Signup',
   EmailVerify: 'EmailVerify',

@@ -1,14 +1,17 @@
+import {API_BASE_URL} from '@env';
 import {tokenStorage} from './tokenStorage';
+import {useAuthStore} from '../store/authStore';
 
-const BASE_URL = 'http://localhost:8080/api'; // TODO: 환경변수로 분리
+const BASE_URL = API_BASE_URL;
 
 async function request<T>(
   path: string,
   options: RequestInit = {},
+  isRetry = false,
 ): Promise<T> {
   const token = await tokenStorage.getAccessToken();
 
-  const headers: HeadersInit = {
+  const headers: HeadersInit_ = {
     'Content-Type': 'application/json',
     ...(token ? {Authorization: `Bearer ${token}`} : {}),
     ...(options.headers ?? {}),
@@ -16,12 +19,13 @@ async function request<T>(
 
   const res = await fetch(`${BASE_URL}${path}`, {...options, headers});
 
-  if (res.status === 401) {
+  if (res.status === 401 && !isRetry) {
     const refreshed = await refreshAccessToken();
     if (!refreshed) {
+      await useAuthStore.getState().logout();
       throw new ApiError('AUTH_001', '로그인이 필요합니다.');
     }
-    return request<T>(path, options);
+    return request<T>(path, options, true);
   }
 
   const json = await res.json();

@@ -1,25 +1,28 @@
-// TODO: react-native-encrypted-storage 또는 @react-native-async-storage/async-storage 설치 후 교체
-// 현재는 인메모리 임시 구현
+import EncryptedStorage from 'react-native-encrypted-storage';
 
-let _accessToken: string | null = null;
-let _refreshToken: string | null = null;
+const ACCESS_TOKEN_KEY = 'runny_access_token';
+const REFRESH_TOKEN_KEY = 'runny_refresh_token';
 
 export const tokenStorage = {
   async getAccessToken(): Promise<string | null> {
-    return _accessToken;
+    return EncryptedStorage.getItem(ACCESS_TOKEN_KEY);
   },
 
   async getRefreshToken(): Promise<string | null> {
-    return _refreshToken;
+    return EncryptedStorage.getItem(REFRESH_TOKEN_KEY);
   },
 
   async setTokens(accessToken: string, refreshToken: string): Promise<void> {
-    _accessToken = accessToken;
-    _refreshToken = refreshToken;
+    await Promise.all([
+      EncryptedStorage.setItem(ACCESS_TOKEN_KEY, accessToken),
+      EncryptedStorage.setItem(REFRESH_TOKEN_KEY, refreshToken),
+    ]);
   },
 
   async clearTokens(): Promise<void> {
-    _accessToken = null;
-    _refreshToken = null;
+    await Promise.all([
+      EncryptedStorage.removeItem(ACCESS_TOKEN_KEY),
+      EncryptedStorage.removeItem(REFRESH_TOKEN_KEY),
+    ]);
   },
 };
