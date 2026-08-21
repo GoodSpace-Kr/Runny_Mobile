@@ -1,29 +1,53 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import {ActivityIndicator, View, StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {useAuthStore} from '../store/authStore';
+import {colors} from '../constants/colors';
+import {Routes} from '../constants/routes';
+import type {RootStackParamList} from './types';
+import {StartScreen} from '../screens/auth/StartScreen';
+import {LoginScreen} from '../screens/auth/LoginScreen';
+import {PlaygroundScreen} from '../screens/playground/PlaygroundScreen';
 
-// TODO: react-navigation 설치 후 타입 정의 및 스택/탭 구성 완성
-
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export function AppNavigator() {
-  const {isAuthenticated, onboardingStatus} = useAuthStore();
+  const {isAuthenticated, isHydrated, hydrate} = useAuthStore();
+
+  useEffect(() => {
+    hydrate();
+  }, [hydrate]);
+
+  if (!isHydrated) {
+    return (
+      <View style={styles.loading}>
+        <ActivityIndicator color={colors.primary} />
+      </View>
+    );
+  }
 
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
-        {!isAuthenticated ? (
-          // Auth 스택
-          <Stack.Screen name="Login" component={require('../screens/auth/LoginScreen').LoginScreen} />
-        ) : onboardingStatus !== 'COMPLETED' ? (
-          // 온보딩 스택
-          <Stack.Screen name="Onboarding" component={require('../screens/onboarding/OnboardingScreen').OnboardingScreen} />
+        {isAuthenticated ? (
+          <Stack.Screen name={Routes.Playground} component={PlaygroundScreen} />
         ) : (
-          // 메인 스택
-          <Stack.Screen name="Main" component={require('../screens/playground/PlaygroundScreen').PlaygroundScreen} />
+          <>
+            <Stack.Screen name={Routes.Start} component={StartScreen} />
+            <Stack.Screen name={Routes.Login} component={LoginScreen} />
+          </>
         )}
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  loading: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.background,
+  },
+});
