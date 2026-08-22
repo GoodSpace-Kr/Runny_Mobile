@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     paddingTop: 8,
   },
   logoutText: {
-    fontFamily: fonts.medium,
+    fontFamily: fonts.gmarketMedium,
     fontSize: 13,
     color: colors.textSecondary,
   },
@@ -53,10 +53,10 @@ const styles = StyleSheet.create({
   },
   placeholder: {
     fontSize: 18,
-    fontFamily: fonts.medium,
+    fontFamily: fonts.gmarketMedium,
     color: '#666',
   },
   body: {
-    fontFamily: fonts.light,
+    fontFamily: fonts.gmarketLight,
   },
 });

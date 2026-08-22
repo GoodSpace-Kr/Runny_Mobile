@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     opacity: 0.4,
   },
   label: {
-    fontFamily: fonts.bold,
+    fontFamily: fonts.gmarketBold,
     fontSize: 10,
     color: colors.white,
   },
