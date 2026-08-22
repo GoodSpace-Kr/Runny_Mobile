@@ -1,7 +1,7 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {SafeScreen} from '../../components/common';
-import {fonts} from '../../constants/fonts';
+import { View, Text, StyleSheet } from 'react-native';
+import { SafeScreen } from '../../components/common';
+import { fonts } from '../../constants/fonts';
 
 export function OnboardingScreen() {
   return (
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    fontFamily: fonts.display,
+    fontFamily: fonts.jalnan,
     fontSize: 24,
   },
 });

@@ -6,6 +6,7 @@ import {
   StyleSheet,
   type ViewStyle,
   type TextStyle,
+  StyleProp,
 } from 'react-native';
 
 import { colors } from '../../constants/colors';
@@ -21,8 +22,8 @@ interface ButtonProps {
   radius?: Radius;
   loading?: boolean;
   disabled?: boolean;
-  style?: ViewStyle;
-  textStyle?: TextStyle;
+  style?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
 }
 
 export function Button({
@@ -74,7 +75,6 @@ const styles = StyleSheet.create({
     height: 55,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 24,
   },
 
   primary: {
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
   },
 
   label: {
-    fontFamily: fonts.display,
+    fontFamily: fonts.jalnan,
   },
 
   primaryLabel: {

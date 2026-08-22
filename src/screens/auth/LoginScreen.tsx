@@ -93,13 +93,13 @@ const styles = StyleSheet.create({
     color: colors.text,
   },
   logo: {
-    fontFamily: fonts.display,
+    fontFamily: fonts.jalnan,
     fontSize: 24,
     color: colors.primary,
   },
   title: {
     marginTop: 40,
-    fontFamily: fonts.display,
+    fontFamily: fonts.jalnan,
     fontSize: 20,
     color: colors.text,
   },
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
   },
   error: {
     marginTop: 16,
-    fontFamily: fonts.medium,
+    fontFamily: fonts.pretendardMedium,
     fontSize: 13,
     color: colors.error,
   },
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
   forgotPassword: {
     marginTop: 16,
     alignSelf: 'center',
-    fontFamily: fonts.medium,
+    fontFamily: fonts.gmarketMedium,
     fontSize: 13,
     color: colors.textSecondary,
     textDecorationLine: 'underline',
